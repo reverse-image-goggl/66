@@ -79,12 +79,13 @@
                 }).then((unityInstance) => {
                   loadingBar.style.display = "none";
                   myGameInstance = unityInstance;
-                  setTimeout(StartUnityInstance_IfUnloaded, 5000);
+                  setTimeout(function () {ysdk.features.LoadingAPI?.ready();}, 2200);
                 }).catch((message) => {
                   alert(message);
                 });
               };
 
+              setTimeout(StartUnityInstance_IfUnloaded, 5000);
               document.body.appendChild(script);
 
             });
