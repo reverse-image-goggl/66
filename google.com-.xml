@@ -12,7 +12,8 @@
 <title>ElementalMasters</title>
 <link rel="shortcut icon" href="TemplateData/favicon.ico"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/TemplateData/style.css"/>
-<script src="https://app-352069.games.s3.yandex.net/sdk/_/v2.cab970d727ec42d6dad9.js"></script>
+<!-- Additional head modules -->
+<script src="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/v2.cab970d727ec42d6dad9.js"></script>
 <!-- Additional head modules -->
 </head>
 <body class="dark">
