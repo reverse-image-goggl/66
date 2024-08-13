@@ -71,25 +71,24 @@
                 productVersion: "1",
               };
 
-              var script = document.createElement("script");
-              script.src = loaderUrl;
-              script.onload = () => {
-                createUnityInstance(canvas, config, (progress) => {
-                  progressBarFull.style.width = 100 * progress + "%";
-                }).then((unityInstance) => {
-                  loadingBar.style.display = "none";
-                  myGameInstance = unityInstance;
-                  setTimeout(function () {ysdk.features.LoadingAPI?.ready();}, 2200);
-                }).catch((message) => {
-                  alert(message);
-                });
-              };
-
-              setTimeout(StartUnityInstance_IfUnloaded, 5000);
-              document.body.appendChild(script);
-
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+                myGameInstance = unityInstance;
+            }).catch((message) => {
+                alert("Error loading Unity instance: " + message);
             });
-          });
+        };
+
+        script.onerror = (error) => {
+            alert("Failed to load Unity loader script: " + error.message);
+        };
+
+        document.body.appendChild(script);
     </script>
 </body>
 </html>
