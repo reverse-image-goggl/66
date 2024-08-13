@@ -73,18 +73,18 @@
 
         var script = document.createElement("script");
         script.src = loaderUrl;
-        script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
+        script.onload = function() {
+            createUnityInstance(canvas, config, function(progress) {
                 progressBarFull.style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
+            }).then(function(unityInstance) {
                 loadingBar.style.display = "none";
                 myGameInstance = unityInstance;
-            }).catch((message) => {
+            }).catch(function(message) {
                 alert("Error loading Unity instance: " + message);
             });
         };
 
-        script.onerror = (error) => {
+        script.onerror = function(error) {
             alert("Failed to load Unity loader script: " + error.message);
         };
 
