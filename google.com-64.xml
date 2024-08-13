@@ -13,6 +13,7 @@
 <link rel="shortcut icon" href="TemplateData/favicon.ico"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/TemplateData/style.css"/>
 <!-- Additional head modules -->
+<script src="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/sdk.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/v2.cab970d727ec42d6dad9.js"></script>
 <!-- Additional head modules -->
 </head>
