@@ -90,7 +90,6 @@
         let photoSizeForInit;
         let scopesForInit;
         let nowFullAdOpen = false;
-        let letGameReadyApi = true;
 
         const script = document.createElement("script");
         script.src = loaderUrl;
@@ -175,14 +174,6 @@
 
             if (nowFullAdOpen == true) {
                 myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
-            }
-        }
-
-        function GameReadyAPI() {
-            if (letGameReadyApi) {
-                ysdk.features.LoadingAPI?.ready();
-                letGameReadyApi = false;
-                console.log('Game Ready API');
             }
         }
 
