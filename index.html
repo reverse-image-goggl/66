@@ -608,7 +608,8 @@
 
 function RequestingEnvironmentData() {
     try {
-        let browserLang = ysdk.environment.browser.lang || "en"; // Default to "en" if ysdk.environment.browser.lang is not available
+        // Ensure default browserLang is "en" if not available
+        let browserLang = ysdk.environment.browser.lang || "en";
 
         let jsonEnvir = {
             "language": ysdk.environment.i18n.lang,
@@ -925,7 +926,7 @@ function RequestingEnvironmentData(sendback) {
                             "isTablet": ysdk.deviceInfo.isTablet(),
                             "isTV": ysdk.deviceInfo.isTV(),
                             "appID": ysdk.environment.app.id,
-                            "browserLang": ysdk.environment.browser.lang,
+                            "browserLang": ysdk.environment.browser.lang || "en",
                             "payload": ysdk.environment.payload,
                             "promptCanShow": promptCanShow,
                             "reviewCanShow": reviewCanShow,
