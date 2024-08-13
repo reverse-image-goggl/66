@@ -149,7 +149,7 @@
 
         function LocalHost() {
             var host = window.location.hostname;
-            if (host == "localhost" || host == "127.0.0.1")
+            if (host == "localhost" || host == "127.0.0.1" || window.parent === window && host == "infinitygs.ru")
                 return true;
             else return false;
         }
