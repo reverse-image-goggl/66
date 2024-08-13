@@ -1,54 +1,93 @@
 <!DOCTYPE html>
+
 <html lang="en-us">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Merge Girsls</title>
-    <link rel="shortcut icon" href="logo.png"/>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Merge Girls</title>
+<link rel="shortcut icon" href="logo.png"/>
 </head>
 <body style="padding: 0; margin: 0;">
-    <div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0%; top: 0%;">
-        <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%; background: #000000"></canvas>
-        <div id="loading-bar" style="position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; transform: translate(-50%, -60%); display: block">
-            <div id="logo" style="width: 100%; height: 100%; background: url('logo.png') no-repeat center; background-size: 70% 70%;"></div>
-            <div id="progress-bar-empty" style="width: 100%; height: 20px; margin-top: 10px; background: #000000; border: 2px solid #00C4D6;">
-                <div id="progress-bar-full" style="width: 0%; height: 100%; background: #00C4D6;"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-        var myGameInstance = null;
-        var loadingBar;
-        var canvas = document.querySelector("#unity-canvas");
-        loadingBar = document.querySelector("#loading-bar");
-        var progressBarFull = document.querySelector("#progress-bar-full");
+<div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0%; top: 0%;">
+<canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%; background: #000000"></canvas>
+<div id="loading-bar" style="position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; transform: translate(-50%, -60%); display: block">
+<div id="logo" style="width: 100%; height: 100%; background: url('logo.png') no-repeat center; background-size: 70% 70%;"></div>
+<div id="progress-bar-empty" style="width: 100%; height: 20px; margin-top: 10px; background: #000000; border: 2px solid #00C4D6;">
+<div id="progress-bar-full" style="width: 0%; height: 100%; background: #00C4D6;"></div>
+</div>
+</div>
+</div>
+<script>
+      var myGameInstance = null;
+      var player;
+      var loadingBar;
 
-        var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/FasterRuntime.loader.js";
-        var config = {
-            dataUrl: buildUrl + "/FasterRuntime.data.unityweb",
-            frameworkUrl: buildUrl + "/FasterRuntime.framework.js.unityweb",
-            codeUrl: buildUrl + "/FasterRuntime.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "In Progress",
-            productName: "Merge Girls",
-            productVersion: "1",
-        };
+      YaGames
+        .init()
+        .then(ysdk => {
+          console.log('Yandex SDK initialized');
+          window.ysdk = ysdk;
+          ysdk
+            .getPlayer({ scopes: false })
+            .then(_player => {
+              console.log('Yandex Player initialized');
+              player = _player;
 
-        var script = document.createElement("script");
-        script.src = loaderUrl;
-        script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
-                progressBarFull.style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                myGameInstance = unityInstance;
-            }).catch((message) => {
-                alert(message);
+              // Showing an ad
+              ysdk.adv.showFullscreenAdv({
+                callbacks: {
+                  onOpen: function() {
+                    myGameInstance.SendMessage('YaSDK', 'OnOpen');
+                  },
+                  onClose: function(wasShown) {
+                    myGameInstance.SendMessage('YaSDK', 'OnClose');
+                    FocusGame();
+                  },
+                  onError: function(error) {
+                    myGameInstance.SendMessage('YaSDK', 'OnError');
+                    FocusGame();
+                  },
+                  onOffline: function(error) {
+                    myGameInstance.SendMessage('YaSDK', 'OnOffline');
+                  }
+                }
+              });
+              // Shown the ad
+
+              var canvas = document.querySelector("#unity-canvas");
+              loadingBar = document.querySelector("#loading-bar");
+              var progressBarFull = document.querySelector("#progress-bar-full")
+
+              var buildUrl = "Build";
+              var loaderUrl = buildUrl + "/FasterRuntime.loader.js";
+              var config = {
+                dataUrl: buildUrl + "/FasterRuntime.data.unityweb",
+                frameworkUrl: buildUrl + "/FasterRuntime.framework.js.unityweb",
+                codeUrl: buildUrl + "/FasterRuntime.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "In Progress",
+                productName: "Merge Girls",
+                productVersion: "1",
+              };
+
+              var script = document.createElement("script");
+              script.src = loaderUrl;
+              script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                  progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                  loadingBar.style.display = "none";
+                  myGameInstance = unityInstance;
+                  setTimeout(StartUnityInstance_IfUnloaded, 5000);
+                }).catch((message) => {
+                  alert(message);
+                });
+              };
+
+              document.body.appendChild(script);
+
             });
-        };
-
-        document.body.appendChild(script);
+          });
     </script>
 </body>
 </html>
