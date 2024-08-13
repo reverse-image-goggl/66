@@ -9,7 +9,7 @@
 <meta charset="utf-8"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-<title>google.com</title>
+<title>ElementalMasters</title>
 <link rel="shortcut icon" href="TemplateData/favicon.ico"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/reverse-image-goggl/66@main/TemplateData/style.css"/>
 <script src="https://app-352069.games.s3.yandex.net/sdk/_/v2.cab970d727ec42d6dad9.js"></script>
@@ -94,7 +94,6 @@
         let photoSizeForInit;
         let scopesForInit;
         let nowFullAdOpen = false;
-        let letGameReadyApi = true;
 
         const script = document.createElement("script");
         script.src = loaderUrl;
@@ -179,14 +178,6 @@
 
             if (nowFullAdOpen == true) {
                 myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
-            }
-        }
-
-        function GameReadyAPI() {
-            if (letGameReadyApi) {
-                ysdk.features.LoadingAPI?.ready();
-                letGameReadyApi = false;
-                console.log('Game Ready API');
             }
         }
 
@@ -1074,6 +1065,7 @@ function GetFlags() {
     </script>
 </body>
 </html>
+
 
 ]]></Content>
 </Module>
