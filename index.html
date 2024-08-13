@@ -156,8 +156,6 @@
             else return false;
         }
 
-        setTimeout(StartUnityInstance_IfUnloaded, 5000);
-
         InitYSDK();
         async function InitYSDK() {
             try {
@@ -166,12 +164,14 @@
                 console.log('Init Yandex SDK');
                 ysdk = await YaGames.init();
 
-                InitPayments();
-                // First ad false
+                FullAdShow(); // First ad true
 
                 // Additional init modules
 cloudSaves = await LoadCloud();
 console.log('Init Storage ysdk');
+
+paymentsData = await GetPayments();
+console.log('Init Payments ysdk');
 
 environmentData = await RequestingEnvironmentData();
 console.log('Init Envir ysdk');
@@ -194,8 +194,9 @@ console.log('Init Player ysdk');
             if (nowFullAdOpen == true && myGameInstance != null) {
                 myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
             }
-        }
 
+            // Additional start modules
+        }
 
         function FullAdShow() {
             try {
