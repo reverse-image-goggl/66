@@ -151,10 +151,12 @@
 
         function LocalHost() {
             var host = window.location.hostname;
-            if (host == "localhost" || host == "127.0.0.1" || window.parent === window && host == "infinitygs.ru")
+            if (host == "localhost" || host == "127.0.0.1")
                 return true;
             else return false;
         }
+
+        setTimeout(StartUnityInstance_IfUnloaded, 5000);
 
         InitYSDK();
         async function InitYSDK() {
@@ -164,14 +166,12 @@
                 console.log('Init Yandex SDK');
                 ysdk = await YaGames.init();
 
-                FullAdShow(); // First ad true
+                InitPayments();
+                // First ad false
 
                 // Additional init modules
 cloudSaves = await LoadCloud();
 console.log('Init Storage ysdk');
-
-paymentsData = await GetPayments();
-console.log('Init Payments ysdk');
 
 environmentData = await RequestingEnvironmentData();
 console.log('Init Envir ysdk');
@@ -194,9 +194,8 @@ console.log('Init Player ysdk');
             if (nowFullAdOpen == true && myGameInstance != null) {
                 myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
             }
-
-            // Additional start modules
         }
+
 
         function FullAdShow() {
             try {
