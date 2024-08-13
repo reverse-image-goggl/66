@@ -51,7 +51,6 @@ function UnityProgress(gameInstance, progress) {
         gameInstance.logo.style.display = 'none';
         gameInstance.progress.style.display = 'none';
         gameInstance.textProgress.style.display = 'none';
-        ShowInter();
     }
 }
 
